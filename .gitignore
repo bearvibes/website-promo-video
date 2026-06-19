@@ -1,0 +1,28 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Build & Output directories
+build/
+**/build/
+out/
+**/out/
+dist/
+**/dist/
+
+# OS-specific files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+**/.env
+
+# Backups
+src_backup/
+**/src_backup/
+
+# Video outputs (ignore rendered video files)
+*.mp4
+/**/*.mp4
