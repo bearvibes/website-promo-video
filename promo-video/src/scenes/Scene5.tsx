@@ -30,12 +30,17 @@ export const Scene5: React.FC = () => {
   const splitRightX = interpolate(splitSpring, [0, 1], [300, 0]);
   const splitOpacity = interpolate(splitSpring, [0, 1], [0, 1]);
 
+  // Smooth fade-outs for phase transitions
+  const p1Opacity = frame < 127 ? 1 : interpolate(frame, [127, 136], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const p2Opacity = frame < 209 ? 1 : interpolate(frame, [209, 218], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const p3Opacity = frame < 346 ? splitOpacity : interpolate(frame, [346, 355], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+
   return (
     <div style={{ position: 'relative', width: 1920, height: 1080, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: '60px' }}>
       
       {/* Phase 1: Businesses winning today aren't spending more (0 - 136f) - Segmented */}
       {showPhase1 && (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', width: '100%', opacity: p1Opacity }}>
           {frame >= 0 && (
             <KineticText 
               text="THE BUSINESSES" 
@@ -83,7 +88,7 @@ export const Scene5: React.FC = () => {
 
       {/* Phase 2: Converting more of what they have (136 - 218f) - Segmented */}
       {showPhase2 && (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', width: '100%', padding: '0 80px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', width: '100%', padding: '0 80px', opacity: p2Opacity }}>
           {frame >= 136 && (
             <KineticText 
               text="THEY'RE" 
@@ -123,7 +128,7 @@ export const Scene5: React.FC = () => {
 
       {/* Phase 3: Split comparison Website vs. Revenue System (218 - 355f) */}
       {showPhase3 && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', opacity: splitOpacity }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', height: '100%', justifyContent: 'center', opacity: p3Opacity }}>
           
           <h2 className="font-headline text-white" style={{ fontSize: '42px', marginBottom: '50px' }}>
             THE DIFFERENCE
