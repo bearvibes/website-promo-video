@@ -106,7 +106,8 @@ export const Scene1: React.FC = () => {
           {frame >= 177 && (
             <GlowCard 
               glowColor="red" 
-              className="stamp-in" 
+              delay={177}
+              transitionType="stamp"
               style={{ width: '400px', height: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
             >
               <h2 className="font-headline title-red" style={{ fontSize: '48px', marginBottom: '15px' }}>NO CALL</h2>
@@ -118,7 +119,8 @@ export const Scene1: React.FC = () => {
           {frame >= 205 && (
             <GlowCard 
               glowColor="red" 
-              className="stamp-in" 
+              delay={205}
+              transitionType="stamp"
               style={{ width: '400px', height: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
             >
               <h2 className="font-headline title-red" style={{ fontSize: '48px', marginBottom: '15px' }}>NO BOOKING</h2>
@@ -130,7 +132,8 @@ export const Scene1: React.FC = () => {
           {frame >= 235 && (
             <GlowCard 
               glowColor="red" 
-              className="stamp-in" 
+              delay={235}
+              transitionType="stamp"
               style={{ width: '400px', height: '300px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}
             >
               <h2 className="font-headline title-red" style={{ fontSize: '48px', marginBottom: '15px' }}>NO SALE</h2>

@@ -7,6 +7,7 @@ interface GlowCardProps {
   glowColor?: 'cyan' | 'red' | 'none';
   delay?: number;
   style?: React.CSSProperties;
+  transitionType?: 'spring' | 'stamp';
 }
 
 export const GlowCard: React.FC<GlowCardProps> = ({
@@ -15,6 +16,7 @@ export const GlowCard: React.FC<GlowCardProps> = ({
   glowColor = 'none',
   delay = 0,
   style = {},
+  transitionType = 'spring',
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -30,9 +32,18 @@ export const GlowCard: React.FC<GlowCardProps> = ({
     },
   });
 
-  const translateY = interpolate(entrySpring, [0, 1], [50, 0]);
+  const isStamp = transitionType === 'stamp';
+  const translateY = isStamp ? 0 : interpolate(entrySpring, [0, 1], [50, 0]);
   const opacity = interpolate(entrySpring, [0, 1], [0, 1]);
-  const scale = interpolate(entrySpring, [0, 1], [0.95, 1]);
+  const scale = isStamp 
+    ? interpolate(entrySpring, [0, 0.7, 1], [3, 0.9, 1]) 
+    : interpolate(entrySpring, [0, 1], [0.95, 1]);
+  const rotate = isStamp 
+    ? interpolate(entrySpring, [0, 0.7, 1], [-15, 5, 0]) 
+    : 0;
+  const blur = isStamp 
+    ? interpolate(entrySpring, [0, 0.7, 1], [10, 0, 0]) 
+    : 0;
 
   let borderClass = '';
   let laserColor = '';
@@ -109,8 +120,9 @@ export const GlowCard: React.FC<GlowCardProps> = ({
     <div
       className={`glass-card ${borderClass} ${className}`}
       style={{
-        transform: `translateY(${translateY}px) scale(${scale})`,
+        transform: `translateY(${translateY}px) scale(${scale}) rotate(${rotate}deg)`,
         opacity,
+        filter: blur > 0 ? `blur(${blur}px)` : undefined,
         position: 'relative',
         overflow: 'hidden',
         ...style,
