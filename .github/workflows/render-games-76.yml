@@ -7,7 +7,7 @@ on:
 
 jobs:
   render-games-76:
-    name: 🕹️ RenderGames76 Free Cloud Render
+    name: 🕹️ RenderGames76 Free Cloud Render (1.2x Speed)
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,7 @@ jobs:
           cd promo-video
           npm ci
 
-      - name: Run RenderGames76 Cloud Engine
+      - name: Run RenderGames76 Cloud Engine (1.2x Speed)
         run: |
           cd promo-video
           npm run render:games76
@@ -34,17 +34,17 @@ jobs:
       - name: Write GitHub Step Summary
         if: always()
         run: |
-          echo "# 🕹️ RenderGames76 Cloud Render Completed" >> $GITHUB_STEP_SUMMARY
+          echo "# 🕹️ RenderGames76 Cloud Render Completed (1.2x Speed)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Metric | Value | Reference |" >> $GITHUB_STEP_SUMMARY
           echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
           echo "| **Status** | ✅ Completed | 100% |" >> $GITHUB_STEP_SUMMARY
           echo "| **Output Resolution** | 1920x1080 | 1080p Full HD |" >> $GITHUB_STEP_SUMMARY
-          echo "| **Speed Multiplier** | 33 FPS | 1.1x Speed vs 30 FPS Reference |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Speed Multiplier** | 36 FPS | **1.2x Speed** vs 30 FPS Reference |" >> $GITHUB_STEP_SUMMARY
           echo "| **Total Frames** | 2,775 frames | Full Length |" >> $GITHUB_STEP_SUMMARY
 
       - name: Upload Rendered MP4 Video Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: video_1.1x.mp4
-          path: promo-video/out/video_1.1x.mp4
+          name: video_1.2x.mp4
+          path: promo-video/out/video_1.2x.mp4

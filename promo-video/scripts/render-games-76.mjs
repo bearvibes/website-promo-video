@@ -14,7 +14,7 @@ let liveStatus = {
   remainingSeconds: 0,
   width: 1920,
   height: 1080,
-  fps: 33,
+  fps: 36,
   startTime: Date.now()
 };
 
@@ -62,7 +62,7 @@ export function getResolutionStandard(width, height) {
 
 export const TECH_FACTS = [
   {
-    fact: "In 1977, a 16KB Apple II computer cost $1,298 (~$6,500 today) and could only display 4 colors at 280x192 resolution. Today, your free cloud runner renders 2,073,600 pixels in 16.7 million colors 33 times every second!",
+    fact: "In 1977, a 16KB Apple II computer cost $1,298 (~$6,500 today) and could only display 4 colors at 280x192 resolution. Today, your free cloud runner renders 2,073,600 pixels in 16.7 million colors 36 times every second!",
     url: "https://en.wikipedia.org/wiki/Apple_II"
   },
   {
@@ -108,7 +108,7 @@ function formatNixieDigits(num, pad = 5) {
 
 export async function runRenderGames76() {
   console.log("\n==========================================================================================");
-  console.log(" 🕹️ RENDERGAMES76: 1970s CLOUD MAINFRAME & TECH HUB");
+  console.log(" 🕹️ RENDERGAMES76: 1970s CLOUD MAINFRAME & TECH HUB [1.2x SPEED MODE]");
   console.log("==========================================================================================\n");
 
   const entry = path.join(process.cwd(), "src", "index.ts");
@@ -116,7 +116,7 @@ export async function runRenderGames76() {
   if (!fs.existsSync(outDir)) {
     fs.mkdirSync(outDir, { recursive: true });
   }
-  const outputFile = path.join(outDir, "video_1.1x.mp4");
+  const outputFile = path.join(outDir, "video_1.2x.mp4");
 
   liveStatus.status = "BUNDLING";
   console.log(" [1/2] Bundling Remotion Assets...");
@@ -142,10 +142,10 @@ export async function runRenderGames76() {
   liveStatus.startTime = Date.now();
 
   console.log(` Output Resolution : ${composition.width}x${composition.height} (${resStandard})`);
-  console.log(` Render Speed       : ${fps} FPS (1.1x Speed vs 30 FPS / 1.0x Reference)`);
+  console.log(` Render Speed       : ${fps} FPS (1.2x Speed vs 30 FPS / 1.0x Reference)`);
   console.log(` Total Frames       : ${totalFrames} frames\n`);
   console.log("------------------------------------------------------------------------------------------");
-  console.log(" 🚀 STARTING HEADLESS FRAME RENDER...");
+  console.log(" 🚀 STARTING HEADLESS FRAME RENDER (1.2x SPEED)...");
   console.log("------------------------------------------------------------------------------------------\n");
 
   let lastLoggedTime = Date.now();
@@ -189,7 +189,7 @@ export async function runRenderGames76() {
   liveStatus.remainingSeconds = 0;
 
   console.log("\n==========================================================================================");
-  console.log(" ✅ RENDERGAMES76 RENDER COMPLETE!");
+  console.log(" ✅ RENDERGAMES76 RENDER COMPLETE (1.2x SPEED)!");
   console.log(` Output File Saved : ${outputFile}`);
   console.log("==========================================================================================\n");
 

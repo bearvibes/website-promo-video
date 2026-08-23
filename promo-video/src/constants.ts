@@ -8,7 +8,7 @@ export const COLOR_DARK_CARD = 'rgba(16, 30, 66, 0.4)';
 
 export const VIDEO_WIDTH = 1920;
 export const VIDEO_HEIGHT = 1080;
-export const VIDEO_FPS = 33;
+export const VIDEO_FPS = 36;
 export const VIDEO_TOTAL_FRAMES = 2775; // Extended by 60 frames (2 seconds at 30 fps) to hold the last frame and fade out
 
 export const TIMINGS = {
