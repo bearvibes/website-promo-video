@@ -32,10 +32,11 @@
       color: var(--text-color);
       font-family: var(--font-family);
       margin: 0;
-      padding: 20px;
+      padding: 16px;
       line-height: 1.5;
       position: relative;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -65,14 +66,14 @@
       text-shadow: var(--crt-glow);
       border-bottom: 1px dashed var(--text-color);
       padding-bottom: 12px;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
     }
 
     .stats-row {
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
       margin-bottom: 20px;
       background: rgba(255, 255, 255, 0.03);
       padding: 12px 16px;
@@ -85,8 +86,8 @@
 
     .nixie-section {
       text-align: center;
-      margin: 24px 0;
-      padding: 16px;
+      margin: 20px 0;
+      padding: 16px 12px;
       background: #020403;
       border: 1px solid #ff6600;
       border-radius: 8px;
@@ -101,22 +102,29 @@
     }
 
     .nixie-container {
-      display: inline-flex;
-      gap: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
       justify-content: center;
       align-items: center;
     }
 
+    .nixie-group {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
     .nixie-bulb {
-      width: 44px;
-      height: 64px;
+      width: 40px;
+      height: 60px;
       background: radial-gradient(circle, rgba(255, 102, 0, 0.15) 0%, rgba(0, 0, 0, 0.9) 80%);
       border: 2px solid #ff8833;
-      border-radius: 20px 20px 8px 8px;
+      border-radius: 18px 18px 8px 8px;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: bold;
       color: #ff6600;
       text-shadow: var(--nixie-glow);
@@ -130,12 +138,12 @@
       position: absolute;
       top: 4px; left: 4px; right: 4px; bottom: 4px;
       border: 1px dotted rgba(255, 150, 50, 0.2);
-      border-radius: 16px 16px 4px 4px;
+      border-radius: 14px 14px 4px 4px;
       pointer-events: none;
     }
 
     .nixie-separator {
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: #ff6600;
       text-shadow: var(--nixie-glow);
     }
@@ -155,12 +163,13 @@
       font-size: 1.1rem;
       margin-bottom: 12px;
       text-shadow: var(--crt-glow);
+      text-align: center;
     }
 
     .tic-tac-toe-grid {
       display: grid;
-      grid-template-columns: repeat(3, 70px);
-      grid-template-rows: repeat(3, 70px);
+      grid-template-columns: repeat(3, 64px);
+      grid-template-rows: repeat(3, 64px);
       gap: 6px;
       background: var(--text-color);
       padding: 6px;
@@ -173,7 +182,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: bold;
       color: #ffffff;
       text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
@@ -199,6 +208,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      flex-wrap: wrap;
     }
 
     input[type=range] {
@@ -211,12 +221,13 @@
       background: transparent;
       color: var(--text-color);
       border: 1px solid var(--text-color);
-      padding: 8px 16px;
+      padding: 8px 14px;
       font-family: inherit;
       font-weight: bold;
       cursor: pointer;
       border-radius: 4px;
       box-shadow: var(--crt-glow);
+      margin-top: 4px;
     }
 
     button:hover {
@@ -242,6 +253,43 @@
       color: var(--text-color);
       word-break: break-all;
     }
+
+    /* MOBILE RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 640px) {
+      body {
+        padding: 8px;
+      }
+      .container {
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.1rem;
+      }
+      .stats-row {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .nixie-bulb {
+        width: 28px;
+        height: 44px;
+        font-size: 1.3rem;
+        border-radius: 12px 12px 6px 6px;
+      }
+      .nixie-separator {
+        font-size: 1.2rem;
+      }
+      .tic-tac-toe-grid {
+        grid-template-columns: repeat(3, 54px);
+        grid-template-rows: repeat(3, 54px);
+      }
+      .cell {
+        font-size: 1.6rem;
+      }
+      .control-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
   </style>
 </head>
 <body>
@@ -258,18 +306,21 @@
     <div class="nixie-section">
       <div class="nixie-title">🔮 LIVE NEON NIXIE TUBE COUNTDOWN & FRAME COUNTER</div>
       <div class="nixie-container">
-        <div class="nixie-bulb" id="m1">0</div>
-        <div class="nixie-bulb" id="m2">0</div>
-        <div class="nixie-separator">:</div>
-        <div class="nixie-bulb" id="s1">0</div>
-        <div class="nixie-bulb" id="s2">0</div>
-        <div style="width: 20px;"></div>
-        <div style="font-size: 0.9rem; color: #ff8833;">FRAMES:</div>
-        <div class="nixie-bulb" id="f1">0</div>
-        <div class="nixie-bulb" id="f2">0</div>
-        <div class="nixie-bulb" id="f3">0</div>
-        <div class="nixie-bulb" id="f4">0</div>
-        <div class="nixie-bulb" id="f5">0</div>
+        <div class="nixie-group">
+          <div class="nixie-bulb" id="m1">0</div>
+          <div class="nixie-bulb" id="m2">0</div>
+          <div class="nixie-separator">:</div>
+          <div class="nixie-bulb" id="s1">0</div>
+          <div class="nixie-bulb" id="s2">0</div>
+        </div>
+        <div class="nixie-group" style="margin-left: 8px;">
+          <div style="font-size: 0.85rem; color: #ff8833; margin-right: 4px;">FRAMES:</div>
+          <div class="nixie-bulb" id="f1">0</div>
+          <div class="nixie-bulb" id="f2">0</div>
+          <div class="nixie-bulb" id="f3">0</div>
+          <div class="nixie-bulb" id="f4">0</div>
+          <div class="nixie-bulb" id="f5">0</div>
+        </div>
       </div>
     </div>
 
@@ -287,9 +338,9 @@
         <div class="cell" data-idx="7"></div>
         <div class="cell" data-idx="8">O</div>
       </div>
-      <div style="margin-top: 12px; font-size: 0.9rem;">
+      <div style="margin-top: 12px; font-size: 0.85rem; text-align: center;">
         <button id="toggle-game-mode">MODE: AUTO-PLAY (WOPR VS WOPR)</button>
-        <span style="margin-left: 12px; opacity: 0.8;">[Keyboard: Numpad 1-9 to Play]</span>
+        <div style="margin-top: 4px; opacity: 0.8;">[Keyboard / Touch to Play]</div>
       </div>
     </div>
 
@@ -377,7 +428,6 @@
       document.body.className = t;
     }
 
-    // Live status polling supporting both local server & GitHub Actions cloud status
     async function pollLiveStatus() {
       try {
         const url = window.location.protocol === 'file:' ? 'http://127.0.0.1:3005/status' : '/status';
@@ -402,7 +452,7 @@
           document.getElementById('f5').innerText = framesStr[4];
         }
       } catch (e) {
-        document.getElementById('status-badge').innerText = "STATUS: GITHUB ACTIONS CLOUD RUNNER ACTIVE (Check GitHub Actions tab)";
+        document.getElementById('status-badge').innerText = "STATUS: GITHUB ACTIONS CLOUD RUNNER ACTIVE";
       }
     }
 
@@ -422,9 +472,19 @@
       });
     }
 
+    document.querySelectorAll('.cell').forEach(cell => {
+      cell.addEventListener('click', (e) => {
+        const idx = e.target.getAttribute('data-idx');
+        if (board[idx] === "") {
+          board[idx] = "X";
+          renderBoard();
+        }
+      });
+    });
+
     document.getElementById('toggle-game-mode').addEventListener('click', (e) => {
       autoPlay = !autoPlay;
-      e.target.innerText = autoPlay ? 'MODE: AUTO-PLAY (WOPR VS WOPR)' : 'MODE: KEYBOARD MANUAL (YOU VS WOPR)';
+      e.target.innerText = autoPlay ? 'MODE: AUTO-PLAY (WOPR VS WOPR)' : 'MODE: MANUAL (TOUCH / KEYBOARD)';
     });
 
     setInterval(() => {
