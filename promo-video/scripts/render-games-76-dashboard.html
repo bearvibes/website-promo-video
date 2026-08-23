@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🕹️ RenderGames76 - 1970s Cloud Mainframe & Tech Hub</title>
+  <style>
+    :root {
+      --bg-color: #050a08;
+      --text-color: #00ff66;
+      --accent-orange: #ff6600;
+      --nixie-glow: 0 0 12px #ff6600, 0 0 25px #ff3300;
+      --crt-glow: 0 0 8px rgba(0, 255, 102, 0.6);
+      --font-family: 'Courier New', Courier, monospace;
+    }
+
+    body.theme-amber {
+      --bg-color: #0c0802;
+      --text-color: #ffb000;
+      --crt-glow: 0 0 8px rgba(255, 176, 0, 0.6);
+    }
+
+    body.theme-modern {
+      --bg-color: #0d1117;
+      --text-color: #58a6ff;
+      --crt-glow: 0 0 8px rgba(88, 166, 255, 0.6);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.5;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      z-index: 10;
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      border: 2px solid var(--text-color);
+      box-shadow: var(--crt-glow);
+      padding: 24px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      text-shadow: var(--crt-glow);
+      border-bottom: 1px dashed var(--text-color);
+      padding-bottom: 12px;
+      font-size: 1.6rem;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 16px;
+      border-radius: 4px;
+    }
+
+    .stat-badge {
+      font-weight: bold;
+    }
+
+    .nixie-section {
+      text-align: center;
+      margin: 24px 0;
+      padding: 16px;
+      background: #020403;
+      border: 1px solid #ff6600;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255, 102, 0, 0.2);
+    }
+
+    .nixie-title {
+      color: var(--accent-orange);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      text-shadow: var(--nixie-glow);
+    }
+
+    .nixie-container {
+      display: inline-flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nixie-bulb {
+      width: 44px;
+      height: 64px;
+      background: radial-gradient(circle, rgba(255, 102, 0, 0.15) 0%, rgba(0, 0, 0, 0.9) 80%);
+      border: 2px solid #ff8833;
+      border-radius: 20px 20px 8px 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #ff6600;
+      text-shadow: var(--nixie-glow);
+      box-shadow: inset 0 0 10px rgba(255, 102, 0, 0.4), 0 0 12px rgba(255, 102, 0, 0.3);
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .nixie-bulb::before {
+      content: "";
+      position: absolute;
+      top: 4px; left: 4px; right: 4px; bottom: 4px;
+      border: 1px dotted rgba(255, 150, 50, 0.2);
+      border-radius: 16px 16px 4px 4px;
+      pointer-events: none;
+    }
+
+    .nixie-separator {
+      font-size: 2rem;
+      color: #ff6600;
+      text-shadow: var(--nixie-glow);
+    }
+
+    .wargames-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 24px 0;
+      border: 1px solid var(--text-color);
+      padding: 16px;
+      border-radius: 6px;
+      background: rgba(0, 255, 102, 0.02);
+    }
+
+    .wargames-header {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      text-shadow: var(--crt-glow);
+    }
+
+    .tic-tac-toe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 70px);
+      grid-template-rows: repeat(3, 70px);
+      gap: 6px;
+      background: var(--text-color);
+      padding: 6px;
+      border-radius: 4px;
+      box-shadow: var(--crt-glow);
+    }
+
+    .cell {
+      background: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cell:hover {
+      background: rgba(0, 255, 102, 0.15);
+    }
+
+    .controls-panel {
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-top: 1px dashed var(--text-color);
+      padding-top: 16px;
+    }
+
+    .control-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    input[type=range] {
+      accent-color: var(--text-color);
+      flex-grow: 1;
+      cursor: pointer;
+    }
+
+    button {
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--text-color);
+      padding: 8px 16px;
+      font-family: inherit;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 4px;
+      box-shadow: var(--crt-glow);
+    }
+
+    button:hover {
+      background: var(--text-color);
+      color: var(--bg-color);
+    }
+
+    .fact-card {
+      margin-top: 20px;
+      border: 1px solid var(--text-color);
+      padding: 16px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .fact-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    a {
+      color: var(--text-color);
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🕹️ RENDERGAMES76: CLOUD MAINFRAME & TECH HUB</h1>
+
+    <div class="stats-row">
+      <div class="stat-badge">RESOLUTION: 1920x1080 (1080p Full HD)</div>
+      <div class="stat-badge">SPEED: 33 FPS (1.1x Reference)</div>
+      <div class="stat-badge" id="status-badge">STATUS: GITHUB ACTIONS CLOUD MONITOR</div>
+    </div>
+
+    <!-- NIXIE TUBE COUNTDOWN DISPLAY -->
+    <div class="nixie-section">
+      <div class="nixie-title">🔮 LIVE NEON NIXIE TUBE COUNTDOWN & FRAME COUNTER</div>
+      <div class="nixie-container">
+        <div class="nixie-bulb" id="m1">0</div>
+        <div class="nixie-bulb" id="m2">0</div>
+        <div class="nixie-separator">:</div>
+        <div class="nixie-bulb" id="s1">0</div>
+        <div class="nixie-bulb" id="s2">0</div>
+        <div style="width: 20px;"></div>
+        <div style="font-size: 0.9rem; color: #ff8833;">FRAMES:</div>
+        <div class="nixie-bulb" id="f1">0</div>
+        <div class="nixie-bulb" id="f2">0</div>
+        <div class="nixie-bulb" id="f3">0</div>
+        <div class="nixie-bulb" id="f4">0</div>
+        <div class="nixie-bulb" id="f5">0</div>
+      </div>
+    </div>
+
+    <!-- WARGAMES TIC TAC TOE MINIGAME -->
+    <div class="wargames-section">
+      <div class="wargames-header">🎯 WARGAMES WOPR TIC-TAC-TOE: <i>"SHALL WE PLAY A GAME?"</i></div>
+      <div class="tic-tac-toe-grid" id="grid">
+        <div class="cell" data-idx="0">X</div>
+        <div class="cell" data-idx="1">O</div>
+        <div class="cell" data-idx="2">X</div>
+        <div class="cell" data-idx="3">O</div>
+        <div class="cell" data-idx="4">X</div>
+        <div class="cell" data-idx="5"></div>
+        <div class="cell" data-idx="6"></div>
+        <div class="cell" data-idx="7"></div>
+        <div class="cell" data-idx="8">O</div>
+      </div>
+      <div style="margin-top: 12px; font-size: 0.9rem;">
+        <button id="toggle-game-mode">MODE: AUTO-PLAY (WOPR VS WOPR)</button>
+        <span style="margin-left: 12px; opacity: 0.8;">[Keyboard: Numpad 1-9 to Play]</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS PANEL -->
+    <div class="controls-panel">
+      <div class="control-group">
+        <label for="interval-slider">Fact Refresh Interval: <span id="interval-val">30s</span></label>
+        <input type="range" id="interval-slider" min="10" max="120" step="10" value="30">
+      </div>
+
+      <div class="control-group">
+        <div>
+          <button id="pause-fact-btn">⏸ PAUSE FACTS</button>
+        </div>
+        <div>
+          <span>THEME: </span>
+          <button onclick="setTheme('')">🟢 Green CRT</button>
+          <button onclick="setTheme('theme-amber')">🟠 Amber CRT</button>
+          <button onclick="setTheme('theme-modern')">🌌 Modern</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECH FACT ROTATING DISPLAY -->
+    <div class="fact-card">
+      <div class="fact-title" id="fact-heading">💡 1970s vs 2026 TECH FACT (#1 of 8)</div>
+      <div id="fact-body">Loading educational tech facts...</div>
+      <div style="margin-top: 8px;"><a id="fact-url" href="#" target="_blank">🔗 Read more</a></div>
+    </div>
+  </div>
+
+  <script>
+    const facts = [
+      {
+        text: "In 1977, a 16KB Apple II computer cost $1,298 (~$6,500 today) and could only display 4 colors at 280x192 resolution. Today, your free cloud runner renders 2,073,600 pixels in 16.7 million colors 33 times every second!",
+        url: "https://en.wikipedia.org/wiki/Apple_II"
+      },
+      {
+        text: "In 1976, the Cray-1 supercomputer cost $8.8M, weighed 5.5 tons, and processed 160 megaflops. A single cloud virtual machine rendering this Remotion video possesses over 500x the raw computing horsepower of Cray-1!",
+        url: "https://en.wikipedia.org/wiki/Cray-1"
+      },
+      {
+        text: "H.264 vs H.265 (HEVC): Developed decades after early analog TV standards, H.265 delivers identical visual video quality to H.264 at half the bit rate, enabling 4K video over home Wi-Fi.",
+        url: "https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding"
+      },
+      {
+        text: "AV1 Open-Source Codec: Designed by Google, Mozilla, and Netflix as a royalty-free successor to HEVC, yielding 30% better compression efficiency for streaming video.",
+        url: "https://en.wikipedia.org/wiki/AV1"
+      }
+    ];
+
+    let factIdx = 0;
+    let isPaused = false;
+    let intervalMs = 30000;
+    let factTimer = null;
+
+    function updateFact() {
+      if (isPaused) return;
+      const f = facts[factIdx % facts.length];
+      document.getElementById('fact-heading').innerText = `💡 1970s vs 2026 TECH FACT (#${(factIdx % facts.length) + 1} of ${facts.length})`;
+      document.getElementById('fact-body').innerText = f.text;
+      document.getElementById('fact-url').href = f.url;
+      document.getElementById('fact-url').innerText = `🔗 Read more: ${f.url}`;
+      factIdx++;
+    }
+
+    function resetTimer() {
+      if (factTimer) clearInterval(factTimer);
+      factTimer = setInterval(updateFact, intervalMs);
+    }
+
+    document.getElementById('interval-slider').addEventListener('input', (e) => {
+      const val = e.target.value;
+      document.getElementById('interval-val').innerText = val + 's';
+      intervalMs = val * 1000;
+      resetTimer();
+    });
+
+    document.getElementById('pause-fact-btn').addEventListener('click', (e) => {
+      isPaused = !isPaused;
+      e.target.innerText = isPaused ? '▶ RESUME FACTS' : '⏸ PAUSE FACTS';
+    });
+
+    function setTheme(t) {
+      document.body.className = t;
+    }
+
+    // Live status polling supporting both local server & GitHub Actions cloud status
+    async function pollLiveStatus() {
+      try {
+        const url = window.location.protocol === 'file:' ? 'http://127.0.0.1:3005/status' : '/status';
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          document.getElementById('status-badge').innerText = `STATUS: ${data.status} (${Math.round(data.progress * 100)}%)`;
+          
+          const remSec = data.remainingSeconds || 0;
+          const mins = String(Math.floor(remSec / 60)).padStart(2, "0");
+          const secs = String(remSec % 60).padStart(2, "0");
+          document.getElementById('m1').innerText = mins[0];
+          document.getElementById('m2').innerText = mins[1];
+          document.getElementById('s1').innerText = secs[0];
+          document.getElementById('s2').innerText = secs[1];
+
+          const framesStr = String(data.renderedFrames || 0).padStart(5, "0");
+          document.getElementById('f1').innerText = framesStr[0];
+          document.getElementById('f2').innerText = framesStr[1];
+          document.getElementById('f3').innerText = framesStr[2];
+          document.getElementById('f4').innerText = framesStr[3];
+          document.getElementById('f5').innerText = framesStr[4];
+        }
+      } catch (e) {
+        document.getElementById('status-badge').innerText = "STATUS: GITHUB ACTIONS CLOUD RUNNER ACTIVE (Check GitHub Actions tab)";
+      }
+    }
+
+    setInterval(pollLiveStatus, 500);
+
+    updateFact();
+    resetTimer();
+
+    // WOPR Tic Tac Toe Logic
+    let board = ["X", "O", "X", "O", "X", "", "", "", "O"];
+    let autoPlay = true;
+
+    function renderBoard() {
+      const cells = document.querySelectorAll('.cell');
+      cells.forEach((c, idx) => {
+        c.innerText = board[idx];
+      });
+    }
+
+    document.getElementById('toggle-game-mode').addEventListener('click', (e) => {
+      autoPlay = !autoPlay;
+      e.target.innerText = autoPlay ? 'MODE: AUTO-PLAY (WOPR VS WOPR)' : 'MODE: KEYBOARD MANUAL (YOU VS WOPR)';
+    });
+
+    setInterval(() => {
+      if (autoPlay) {
+        const emptyIndices = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
+        if (emptyIndices.length > 0) {
+          const rand = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+          board[rand] = Math.random() > 0.5 ? "X" : "O";
+        } else {
+          board = ["", "", "", "", "", "", "", "", ""];
+        }
+        renderBoard();
+      }
+    }, 1200);
+
+    window.addEventListener('keydown', (e) => {
+      const keyMap = { "1":6, "2":7, "3":8, "4":3, "5":4, "6":5, "7":0, "8":1, "9":2 };
+      if (keyMap[e.key] !== undefined) {
+        const idx = keyMap[e.key];
+        if (board[idx] === "") {
+          board[idx] = "X";
+          renderBoard();
+        }
+      }
+    });
+  </script>
+</body>
+</html>
