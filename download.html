@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔐 RenderGames76 - Secure Video Download Terminal</title>
+  <style>
+    :root {
+      --bg-color: #050a08;
+      --text-color: #00ff66;
+      --accent-orange: #ff6600;
+      --crt-glow: 0 0 8px rgba(0, 255, 102, 0.6);
+      --font-family: 'Courier New', Courier, monospace;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font-family);
+      margin: 0;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .terminal-card {
+      border: 2px solid var(--text-color);
+      box-shadow: var(--crt-glow);
+      padding: 32px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      margin-top: 0;
+      border-bottom: 1px dashed var(--text-color);
+      padding-bottom: 12px;
+      text-shadow: var(--crt-glow);
+    }
+
+    .status-box {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px;
+      border-radius: 4px;
+      margin: 16px 0;
+      font-size: 0.9rem;
+    }
+
+    .pass-input {
+      width: 100%;
+      padding: 12px;
+      margin: 16px 0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--text-color);
+      color: var(--text-color);
+      font-family: inherit;
+      font-size: 1.1rem;
+      text-align: center;
+      border-radius: 4px;
+    }
+
+    .action-btn {
+      background: var(--text-color);
+      color: var(--bg-color);
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 14px 24px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      box-shadow: var(--crt-glow);
+      width: 100%;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .action-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      background: transparent;
+      color: var(--text-color);
+      border: 1px solid var(--text-color);
+    }
+
+    #error-msg {
+      color: #ff3300;
+      font-weight: bold;
+      margin: 10px 0;
+      min-height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal-card">
+    <h1>🔐 RENDERGAMES76: SECURE DOWNLOAD TERMINAL</h1>
+
+    <div class="status-box" id="clearance-status">
+      Checking 24-hour clearance status...
+    </div>
+
+    <div id="auth-container">
+      <div style="font-size: 0.95rem; margin-top: 8px;">Enter Security Clearance Code to Unlock Video Download:</div>
+      <input type="password" id="pass-input" class="pass-input" placeholder="Enter Password...">
+      <div id="error-msg"></div>
+      <button class="action-btn" id="verify-btn">[ VERIFY CLEARANCE CODE ]</button>
+    </div>
+
+    <div id="download-container" style="display: none; margin-top: 20px;">
+      <div style="color: #00ff66; font-weight: bold; margin-bottom: 16px;">✅ CLEARANCE VERIFIED - ACCESS GRANTED</div>
+      <a id="single-download-link" class="action-btn" href="#" download>
+        📥 CLICK HERE TO DOWNLOAD VIDEO_1.2X.MP4
+      </a>
+    </div>
+
+    <div style="margin-top: 24px; font-size: 0.8rem; opacity: 0.7;">
+      <a href="index.html" style="color: var(--text-color);">← Return to RenderGames76 Mainframe</a>
+    </div>
+  </div>
+
+  <script>
+    const TARGET_PASS = "Beechraft76";
+    const clearanceStatus = document.getElementById('clearance-status');
+    const authContainer = document.getElementById('auth-container');
+    const downloadContainer = document.getElementById('download-container');
+    const passInput = document.getElementById('pass-input');
+    const verifyBtn = document.getElementById('verify-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const singleDownloadLink = document.getElementById('single-download-link');
+
+    let isClearanceActive = false;
+    let latestVideoUrl = "";
+
+    async function checkRenderClearance() {
+      try {
+        const res = await fetch('render-status.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          const renderTime = new Date(data.timestamp).getTime();
+          const now = Date.now();
+          const diffHours = (now - renderTime) / (1000 * 60 * 60);
+
+          if (data.status === "SUCCESS" && diffHours <= 24) {
+            isClearanceActive = true;
+            latestVideoUrl = data.downloadUrl || "https://github.com/bearvibes/website-promo-video/releases/download/latest/video_1.2x.mp4";
+            const hoursLeft = Math.floor(24 - diffHours);
+            const minsLeft = Math.floor(((24 - diffHours) % 1) * 60);
+            clearanceStatus.innerHTML = `🟢 <b>CLEARANCE ACTIVE</b><br>Latest Video Rendered: <b>${data.version || '1.2x'}</b><br>Expires in: <b>${hoursLeft}h ${minsLeft}m</b>`;
+          } else {
+            setExpiredStatus("Render older than 24 hours.");
+          }
+        } else {
+          setExpiredStatus("No recent render record found.");
+        }
+      } catch (e) {
+        setExpiredStatus("Clearance status check offline.");
+      }
+    }
+
+    function setExpiredStatus(reason) {
+      isClearanceActive = false;
+      clearanceStatus.innerHTML = `🔴 <b>CLEARANCE EXPIRED OR INACTIVE</b><br>${reason}<br><i>Re-render required to generate new 24h download link.</i>`;
+      verifyBtn.disabled = true;
+      passInput.disabled = true;
+    }
+
+    verifyBtn.addEventListener('click', verifyPass);
+    passInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') verifyPass();
+    });
+
+    function verifyPass() {
+      if (!isClearanceActive) return;
+      if (passInput.value === TARGET_PASS) {
+        errorMsg.style.color = '#00ff66';
+        errorMsg.innerText = "ACCESS GRANTED!";
+        authContainer.style.display = 'none';
+        downloadContainer.style.display = 'block';
+        singleDownloadLink.href = latestVideoUrl;
+      } else {
+        errorMsg.style.color = '#ff3300';
+        errorMsg.innerText = "ACCESS DENIED: INVALID CLEARANCE CODE";
+      }
+    }
+
+    checkRenderClearance();
+  </script>
+</body>
+</html>

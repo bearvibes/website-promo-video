@@ -106,54 +106,13 @@
       color: var(--bg-color);
       font-size: 1rem;
       font-weight: bold;
-      padding: 10px 20px;
+      padding: 12px 20px;
       border: none;
       cursor: pointer;
       border-radius: 4px;
       box-shadow: var(--crt-glow);
-    }
-
-    .download-btn:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-      background: transparent;
-      color: var(--text-color);
-      border: 1px solid var(--text-color);
-    }
-
-    /* PASSWORD MODAL STYLING */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 100;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-box {
-      border: 2px solid var(--text-color);
-      background: var(--bg-color);
-      padding: 24px;
-      border-radius: 8px;
-      box-shadow: var(--crt-glow);
-      max-width: 420px;
-      width: 90%;
-      text-align: center;
-    }
-
-    .modal-input {
-      width: 100%;
-      padding: 10px;
-      margin: 16px 0;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--text-color);
-      color: var(--text-color);
-      font-family: inherit;
-      font-size: 1.1rem;
-      text-align: center;
-      border-radius: 4px;
+      text-decoration: none;
+      display: inline-block;
     }
 
     /* PERFECTLY CENTERED NIXIE SECTION */
@@ -403,8 +362,8 @@
 
     <!-- 24-HOUR PASSWORD PROTECTED DOWNLOAD CLEARANCE -->
     <div class="download-section">
-      <div class="download-title">🔐 24-HOUR DIRECT VIDEO DOWNLOAD CLEARANCE</div>
-      <button class="download-btn" id="download-trigger-btn">📥 DOWNLOAD LATEST VIDEO_1.2X.MP4</button>
+      <div class="download-title">🔐 24-HOUR SECURE VIDEO DOWNLOAD CLEARANCE</div>
+      <a href="download.html" class="download-btn">📥 OPEN SECURE DOWNLOAD TERMINAL</a>
       <div id="download-time-status" style="margin-top: 8px; font-size: 0.85rem; opacity: 0.85;">
         Clearance Status: ACTIVE (Password Required: Beechraft76)
       </div>
@@ -488,20 +447,6 @@
     </div>
   </div>
 
-  <!-- PASSWORD PROMPT MODAL -->
-  <div class="modal-overlay" id="password-modal">
-    <div class="modal-box">
-      <div style="font-weight: bold; font-size: 1.2rem; color: #ff6600;">🔐 SECURITY CLEARANCE REQUIRED</div>
-      <div style="margin-top: 8px; font-size: 0.9rem;">Enter 24-hour clearance code to unlock MP4 download:</div>
-      <input type="password" id="pass-input" class="modal-input" placeholder="Enter Password...">
-      <div id="modal-error" style="color: #ff3300; font-weight: bold; min-height: 24px; font-size: 0.9rem;"></div>
-      <div style="display: flex; gap: 12px; justify-content: center; margin-top: 12px;">
-        <button id="unlock-btn">[ UNLOCK & DOWNLOAD ]</button>
-        <button id="cancel-btn" style="border-color: #ff3300; color: #ff3300;">[ CANCEL ]</button>
-      </div>
-    </div>
-  </div>
-
   <script>
     const facts = [
       {
@@ -556,47 +501,6 @@
 
     function setTheme(t) {
       document.body.className = t;
-    }
-
-    // 24-HOUR DOWNLOAD & DIRECT MP4 CLEARANCE LOGIC
-    const TARGET_PASS = "Beechraft76";
-    const downloadBtn = document.getElementById('download-trigger-btn');
-    const modal = document.getElementById('password-modal');
-    const passInput = document.getElementById('pass-input');
-    const modalError = document.getElementById('modal-error');
-    const unlockBtn = document.getElementById('unlock-btn');
-    const cancelBtn = document.getElementById('cancel-btn');
-
-    downloadBtn.addEventListener('click', () => {
-      modal.style.display = 'flex';
-      passInput.value = '';
-      modalError.innerText = '';
-      passInput.focus();
-    });
-
-    cancelBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
-
-    unlockBtn.addEventListener('click', verifyAndDownload);
-    passInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') verifyAndDownload();
-    });
-
-    function verifyAndDownload() {
-      if (passInput.value === TARGET_PASS) {
-        modalError.style.color = '#00ff66';
-        modalError.innerText = "ACCESS GRANTED! INITIATING DIRECT MP4 DOWNLOAD...";
-        setTimeout(() => {
-          modal.style.display = 'none';
-          // Direct Release MP4 download URL
-          const targetUrl = "https://github.com/bearvibes/website-promo-video/releases/download/latest/video_1.2x.mp4";
-          window.location.href = targetUrl;
-        }, 1000);
-      } else {
-        modalError.style.color = '#ff3300';
-        modalError.innerText = "ACCESS DENIED: INVALID CLEARANCE CODE";
-      }
     }
 
     async function pollLiveStatus() {
