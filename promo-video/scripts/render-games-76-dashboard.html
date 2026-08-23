@@ -403,10 +403,10 @@
 
     <!-- 24-HOUR PASSWORD PROTECTED DOWNLOAD CLEARANCE -->
     <div class="download-section">
-      <div class="download-title">🔐 24-HOUR VIDEO DOWNLOAD CLEARANCE</div>
+      <div class="download-title">🔐 24-HOUR DIRECT VIDEO DOWNLOAD CLEARANCE</div>
       <button class="download-btn" id="download-trigger-btn">📥 DOWNLOAD LATEST VIDEO_1.2X.MP4</button>
       <div id="download-time-status" style="margin-top: 8px; font-size: 0.85rem; opacity: 0.85;">
-        Clearance Status: ACTIVE (Password Required)
+        Clearance Status: ACTIVE (Password Required: Beechraft76)
       </div>
     </div>
 
@@ -492,7 +492,7 @@
   <div class="modal-overlay" id="password-modal">
     <div class="modal-box">
       <div style="font-weight: bold; font-size: 1.2rem; color: #ff6600;">🔐 SECURITY CLEARANCE REQUIRED</div>
-      <div style="margin-top: 8px; font-size: 0.9rem;">Enter 24-hour clearance code to unlock download:</div>
+      <div style="margin-top: 8px; font-size: 0.9rem;">Enter 24-hour clearance code to unlock MP4 download:</div>
       <input type="password" id="pass-input" class="modal-input" placeholder="Enter Password...">
       <div id="modal-error" style="color: #ff3300; font-weight: bold; min-height: 24px; font-size: 0.9rem;"></div>
       <div style="display: flex; gap: 12px; justify-content: center; margin-top: 12px;">
@@ -558,7 +558,7 @@
       document.body.className = t;
     }
 
-    // 24-HOUR DOWNLOAD & PASSWORD CLEARANCE LOGIC
+    // 24-HOUR DOWNLOAD & DIRECT MP4 CLEARANCE LOGIC
     const TARGET_PASS = "Beechraft76";
     const downloadBtn = document.getElementById('download-trigger-btn');
     const modal = document.getElementById('password-modal');
@@ -586,11 +586,11 @@
     function verifyAndDownload() {
       if (passInput.value === TARGET_PASS) {
         modalError.style.color = '#00ff66';
-        modalError.innerText = "ACCESS GRANTED! INITIATING DOWNLOAD...";
+        modalError.innerText = "ACCESS GRANTED! INITIATING DIRECT MP4 DOWNLOAD...";
         setTimeout(() => {
           modal.style.display = 'none';
-          const targetUrl = "https://github.com/bearvibes/website-promo-video/actions";
-          window.open(targetUrl, '_blank');
+          const targetUrl = "https://github.com/bearvibes/website-promo-video/releases/download/latest/video_1.2x.mp4";
+          window.location.href = targetUrl;
         }, 1000);
       } else {
         modalError.style.color = '#ff3300';

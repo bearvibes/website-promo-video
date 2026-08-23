@@ -5,6 +5,9 @@ on:
   push:
     branches: [ main, master ]
 
+permissions:
+  contents: write
+
 jobs:
   render-games-76:
     name: 🕹️ RenderGames76 Free Cloud Render (1.2x Speed)
@@ -48,3 +51,12 @@ jobs:
         with:
           name: video_1.2x.mp4
           path: promo-video/out/video_1.2x.mp4
+
+      - name: Publish Direct Video Download Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+          name: RenderGames76 Latest Video (1.2x Speed)
+          files: promo-video/out/video_1.2x.mp4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
