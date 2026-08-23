@@ -97,22 +97,39 @@
     .nixie-title {
       color: var(--accent-orange);
       font-size: 1.1rem;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       text-shadow: var(--nixie-glow);
     }
 
-    .nixie-container {
+    .nixie-wrapper {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      flex-direction: row;
       justify-content: center;
       align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nixie-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .nixie-label {
+      font-size: 0.8rem;
+      color: #ff8833;
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+      text-shadow: var(--nixie-glow);
+      font-weight: bold;
     }
 
     .nixie-group {
       display: flex;
       gap: 4px;
       align-items: center;
+      justify-content: center;
     }
 
     .nixie-bulb {
@@ -254,7 +271,6 @@
       word-break: break-all;
     }
 
-    /* MOBILE RESPONSIVE MEDIA QUERIES */
     @media (max-width: 640px) {
       body {
         padding: 8px;
@@ -269,21 +285,25 @@
         flex-direction: column;
         gap: 6px;
       }
+      .nixie-wrapper {
+        flex-direction: column;
+        gap: 16px;
+      }
       .nixie-bulb {
-        width: 28px;
-        height: 44px;
-        font-size: 1.3rem;
-        border-radius: 12px 12px 6px 6px;
+        width: 32px;
+        height: 48px;
+        font-size: 1.4rem;
+        border-radius: 14px 14px 6px 6px;
       }
       .nixie-separator {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
       }
       .tic-tac-toe-grid {
-        grid-template-columns: repeat(3, 54px);
-        grid-template-rows: repeat(3, 54px);
+        grid-template-columns: repeat(3, 56px);
+        grid-template-rows: repeat(3, 56px);
       }
       .cell {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
       }
       .control-group {
         flex-direction: column;
@@ -304,22 +324,28 @@
 
     <!-- NIXIE TUBE COUNTDOWN DISPLAY -->
     <div class="nixie-section">
-      <div class="nixie-title">🔮 LIVE NEON NIXIE TUBE COUNTDOWN & FRAME COUNTER</div>
-      <div class="nixie-container">
-        <div class="nixie-group">
-          <div class="nixie-bulb" id="m1">0</div>
-          <div class="nixie-bulb" id="m2">0</div>
-          <div class="nixie-separator">:</div>
-          <div class="nixie-bulb" id="s1">0</div>
-          <div class="nixie-bulb" id="s2">0</div>
+      <div class="nixie-title">🔮 LIVE NEON NIXIE TUBE READOUTS</div>
+      <div class="nixie-wrapper">
+        <div class="nixie-block">
+          <div class="nixie-label">COUNTDOWN</div>
+          <div class="nixie-group">
+            <div class="nixie-bulb" id="m1">0</div>
+            <div class="nixie-bulb" id="m2">0</div>
+            <div class="nixie-separator">:</div>
+            <div class="nixie-bulb" id="s1">0</div>
+            <div class="nixie-bulb" id="s2">0</div>
+          </div>
         </div>
-        <div class="nixie-group" style="margin-left: 8px;">
-          <div style="font-size: 0.85rem; color: #ff8833; margin-right: 4px;">FRAMES:</div>
-          <div class="nixie-bulb" id="f1">0</div>
-          <div class="nixie-bulb" id="f2">0</div>
-          <div class="nixie-bulb" id="f3">0</div>
-          <div class="nixie-bulb" id="f4">0</div>
-          <div class="nixie-bulb" id="f5">0</div>
+
+        <div class="nixie-block">
+          <div class="nixie-label">FRAMES RENDERED</div>
+          <div class="nixie-group">
+            <div class="nixie-bulb" id="f1">0</div>
+            <div class="nixie-bulb" id="f2">0</div>
+            <div class="nixie-bulb" id="f3">0</div>
+            <div class="nixie-bulb" id="f4">0</div>
+            <div class="nixie-bulb" id="f5">0</div>
+          </div>
         </div>
       </div>
     </div>
