@@ -84,10 +84,11 @@
       font-weight: bold;
     }
 
+    /* PERFECTLY CENTERED NIXIE SECTION */
     .nixie-section {
       text-align: center;
       margin: 20px 0;
-      padding: 16px 12px;
+      padding: 18px 12px;
       background: #020403;
       border: 1px solid #ff6600;
       border-radius: 8px;
@@ -97,39 +98,44 @@
     .nixie-title {
       color: var(--accent-orange);
       font-size: 1.1rem;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       text-shadow: var(--nixie-glow);
+      font-weight: bold;
     }
 
     .nixie-wrapper {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      width: 100%;
     }
 
     .nixie-block {
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      width: 100%;
     }
 
     .nixie-label {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #ff8833;
-      margin-bottom: 6px;
-      letter-spacing: 1px;
+      margin-bottom: 8px;
+      letter-spacing: 1.5px;
       text-shadow: var(--nixie-glow);
       font-weight: bold;
+      text-align: center;
     }
 
     .nixie-group {
       display: flex;
-      gap: 4px;
+      gap: 6px;
       align-items: center;
       justify-content: center;
+      width: 100%;
     }
 
     .nixie-bulb {
@@ -163,6 +169,7 @@
       font-size: 1.8rem;
       color: #ff6600;
       text-shadow: var(--nixie-glow);
+      margin: 0 2px;
     }
 
     .wargames-section {
@@ -322,12 +329,13 @@
       <div class="stat-badge" id="status-badge">STATUS: GITHUB ACTIONS CLOUD MONITOR</div>
     </div>
 
-    <!-- NIXIE TUBE COUNTDOWN DISPLAY -->
+    <!-- PERFECTLY SYMMETRICAL NIXIE READOUTS -->
     <div class="nixie-section">
       <div class="nixie-title">🔮 LIVE NEON NIXIE TUBE READOUTS</div>
       <div class="nixie-wrapper">
+        <!-- COUNTDOWN ROW -->
         <div class="nixie-block">
-          <div class="nixie-label">COUNTDOWN</div>
+          <div class="nixie-label">── COUNTDOWN (MIN : SEC) ──</div>
           <div class="nixie-group">
             <div class="nixie-bulb" id="m1">0</div>
             <div class="nixie-bulb" id="m2">0</div>
@@ -337,8 +345,9 @@
           </div>
         </div>
 
+        <!-- FRAMES RENDERED ROW -->
         <div class="nixie-block">
-          <div class="nixie-label">FRAMES RENDERED</div>
+          <div class="nixie-label">── FRAMES RENDERED ──</div>
           <div class="nixie-group">
             <div class="nixie-bulb" id="f1">0</div>
             <div class="nixie-bulb" id="f2">0</div>
